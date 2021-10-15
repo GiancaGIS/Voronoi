@@ -12,7 +12,7 @@ namespace LibVoronoiDiagram_ArcGISDesktop
     public class VoronoiPolygonBase : IVoronoiPolygons
     {
         public IFeatureClass _fcTarget = null;
-        public List<IGeometry> _geometrieVoronoiCalculated = null;
+        public List<IGeometry> _geometriesVoronoiCalculated = null;
 
         public void ValidateFeatureClassTarget()
         {
@@ -27,8 +27,8 @@ namespace LibVoronoiDiagram_ArcGISDesktop
         /// <returns></returns>
         public List<IGeometry> CalculateVoronoiPolygons(List<IPoint> points)
         {
-            this._geometrieVoronoiCalculated = new EngineVoronoi().CalculateVoronoiPolygons(points);
-            return this._geometrieVoronoiCalculated;
+            this._geometriesVoronoiCalculated = new EngineVoronoi().CalculateVoronoiPolygons(points);
+            return this._geometriesVoronoiCalculated;
         }
 
 
@@ -57,8 +57,8 @@ namespace LibVoronoiDiagram_ArcGISDesktop
             if (featureClass.ShapeType != esriGeometryType.esriGeometryPolygon)
                 throw new ArgumentException("The feature class must be a polygon feature class!");
 
-            if (this._geometrieVoronoiCalculated is null) return;
-            if (this._geometrieVoronoiCalculated.Count == 0) return;
+            if (this._geometriesVoronoiCalculated is null) return;
+            if (this._geometriesVoronoiCalculated.Count == 0) return;
 
             IWorkspace workspace = null;
             IWorkspaceEdit workspaceEdit = null;
@@ -73,7 +73,7 @@ namespace LibVoronoiDiagram_ArcGISDesktop
             IFeatureBuffer featureBuffer = featureClass.CreateFeatureBuffer();
             IFeatureCursor featureCursor = featureClass.Insert(true);
 
-            foreach (IGeometry geometry in this._geometrieVoronoiCalculated)
+            foreach (IGeometry geometry in this._geometriesVoronoiCalculated)
             {
                 featureBuffer.Shape = geometry;
                 featureCursor.InsertFeature(featureBuffer);
