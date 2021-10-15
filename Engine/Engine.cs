@@ -1,32 +1,26 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="GeometryVoronoi.cs" company="Studio A&T s.r.l.">
-//     Copyright (c) Studio A&T s.r.l. All rights reserved.
-// </copyright>
-// <author>Nicogis</author>
-//-----------------------------------------------------------------------
-namespace Studioat.ArcGIS.Voronoi
-{
-    using System;
-    using System.Collections.Generic;
-    using ESRI.ArcGIS.Geometry;
+﻿using ESRI.ArcGIS.Geometry;
+using LibVoronoiDiagram_ArcGISDesktop.Model;
+using System;
+using System.Collections.Generic;
 
-    /// <summary>
-    /// triangulation class
-    /// </summary>
-    public partial class Triangulation
+
+namespace LibVoronoiDiagram_ArcGISDesktop.Engine
+{
+    internal class EngineVoronoi
     {
+        internal EngineVoronoi()
+        { }
+
         /// <summary>
         /// Calculate diagram voronoi from list of points
         /// </summary>
         /// <param name="points">list of points</param>
         /// <returns>list of polygons</returns>
-        public static IList<IGeometry> GeometryVoronoi(List<IPoint> points)
+        internal List<IGeometry> CalculateVoronoiPolygons(List<IPoint> points)
         {
             // Check valid input
-            if (points.Count < 3)
-            {
-                throw new ArgumentException("Input must be a MultiPoint containing at least three points");
-            }
+            if (points.Count < 3) throw new ArgumentException("Input must be a MultiPoint containing at least three points");
+
 
             // Initialise a list of vertices
             List<SimplePoint> vertices = new List<SimplePoint>();
@@ -63,7 +57,7 @@ namespace Studioat.ArcGIS.Voronoi
             }
 
             // Calculate the "supertriangle" that encompasses the pointset
-            IEnvelope envelope = (pointCollection as IGeometry).Envelope;
+            IEnvelope envelope = ((IGeometry)pointCollection).Envelope;
 
             // Width
             double dx = envelope.Width;
@@ -88,16 +82,16 @@ namespace Studioat.ArcGIS.Voronoi
             vertices.Add(b);
             vertices.Add(c);
 
-            double radius;
-            SimplePoint circumcentre;
-            Triangulation.CalculateCircumcircle(a, b, c, out circumcentre, out radius);
+            Triangulation.CalculateCircumcircle(a, b, c, out SimplePoint circumcentre, out double radius);
 
             // Create a triangle from the vertices
             SimpleTriangle superTriangle = new SimpleTriangle(numPoints, numPoints + 1, numPoints + 2, circumcentre, radius);
 
             // Add the supertriangle to the list of triangles
-            List<SimpleTriangle> triangles = new List<SimpleTriangle>();
-            triangles.Add(superTriangle);
+            List<SimpleTriangle> triangles = new List<SimpleTriangle>
+            {
+                superTriangle
+            };
 
             List<SimpleTriangle> completedTriangles = new List<SimpleTriangle>();
 
@@ -111,7 +105,7 @@ namespace Studioat.ArcGIS.Voronoi
                 for (int j = triangles.Count - 1; j >= 0; j--)
                 {
                     // If the point lies within the circumcircle of this triangle
-                    if (Distance(triangles[j].CircumCentre, vertices[i]) < triangles[j].Radius)
+                    if (Triangulation.Distance(triangles[j].CircumCentre, vertices[i]) < triangles[j].Radius)
                     {
                         // Add the triangle edges to the edge buffer
                         edges.Add(new int[] { triangles[j].A, triangles[j].B });
@@ -163,11 +157,11 @@ namespace Studioat.ArcGIS.Voronoi
             // We've finished triangulation. Move any remaining triangles onto the completed list
             completedTriangles.AddRange(triangles);
 
-            IList<IGeometry> voronoiPolygon = new List<IGeometry>();
+            List<IGeometry> voronoiPolygon = new List<IGeometry>();
             for (var i = 0; i < vertices.Count; i++)
             {
                 // Initiliase a new geometry to hold the voronoi polygon
-                IPointCollection mp = new MultipointClass();
+                IPointCollection pointCollection1 = new MultipointClass();
 
                 // Look through each triangle
                 foreach (SimpleTriangle tri in completedTriangles)
@@ -175,21 +169,17 @@ namespace Studioat.ArcGIS.Voronoi
                     // If the triangle intersects this point
                     if (tri.A == i || tri.B == i || tri.C == i)
                     {
-                        mp.AddPoint(new PointClass() { X = tri.CircumCentre.X, Y = tri.CircumCentre.Y });
+                        pointCollection1.AddPoint(new PointClass() { X = tri.CircumCentre.X, Y = tri.CircumCentre.Y });
                     }
                 }
 
                 // Create the voronoi polygon from the convex hull of the circumcentres of intersecting triangles
-                ITopologicalOperator topologicalOperator = mp as ITopologicalOperator;
+                ITopologicalOperator topologicalOperator = (ITopologicalOperator)pointCollection1;
                 IGeometry polygon = topologicalOperator.ConvexHull();
-                topologicalOperator = polygon as ITopologicalOperator;
+                topologicalOperator = (ITopologicalOperator)polygon;
                 IGeometry result = topologicalOperator.Intersect(envelope, esriGeometryDimension.esriGeometry2Dimension);
-                if ((result != null) && (!result.IsEmpty))
-                {
-                    voronoiPolygon.Add(result);
-                }
+                if (result != null && !result.IsEmpty) voronoiPolygon.Add(result);
             }
-
             return voronoiPolygon;
         }
     }

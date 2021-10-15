@@ -1,17 +1,12 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="SimpleFunctions.cs" company="Studio A&T s.r.l.">
-//     Copyright (c) Studio A&T s.r.l. All rights reserved.
-// </copyright>
-// <author>Nicogis</author>
-//-----------------------------------------------------------------------
-namespace Studioat.ArcGIS.Voronoi
-{
-    using System;
+﻿using LibVoronoiDiagram_ArcGISDesktop.Model;
+using System;
 
+namespace LibVoronoiDiagram_ArcGISDesktop.Engine
+{
     /// <summary>
     /// class Triangulation
     /// </summary>
-    public partial class Triangulation
+    internal static class Triangulation
     {
         /// <summary>
         /// calculate center of circle and radius using three points
@@ -21,7 +16,7 @@ namespace Studioat.ArcGIS.Voronoi
         /// <param name="p3">third point</param>
         /// <param name="circumCentre">center of circle</param>
         /// <param name="radius">value of radius</param>
-        private static void CalculateCircumcircle(SimplePoint p1, SimplePoint p2, SimplePoint p3, out SimplePoint circumCentre, out double radius)
+        internal static void CalculateCircumcircle(SimplePoint p1, SimplePoint p2, SimplePoint p3, out SimplePoint circumCentre, out double radius)
         {
             // Calculate the length of each side of the triangle
             double a = Distance(p2, p3); // side a is opposite point 1
@@ -55,10 +50,9 @@ namespace Studioat.ArcGIS.Voronoi
         /// <param name="p1">first point</param>
         /// <param name="p2">second point</param>
         /// <returns>distance between two points</returns>
-        private static double Distance(SimplePoint p1, SimplePoint p2)
+        internal static double Distance(SimplePoint p1, SimplePoint p2)
         {
-            double result = 0;
-            result = Math.Sqrt(Math.Pow(p2.X - p1.X, 2) + Math.Pow(p2.Y - p1.Y, 2));
+            double result = Math.Sqrt(Math.Pow(p2.X - p1.X, 2) + Math.Pow(p2.Y - p1.Y, 2));
             return result;
         }
     }
