@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace LibVoronoiDiagram_ArcGISDesktop
 {
-    public interface IVoronoiPolygons
+    internal interface IVoronoiPolygons
     {
         List<IGeometry> CalculateVoronoiPolygons(List<IPoint> points);
 

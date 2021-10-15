@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 namespace LibVoronoiDiagram_ArcGISDesktop
 {
     [ClassInterface(ClassInterfaceType.None), Guid("d123de5e-46da-45c4-ba23-d0f9a46217fe"), ProgId("LibVoronoiDiagram_ArcGISDesktop.Main")]
-    public class VoronoiPolygonBase : IVoronoiPolygons
+    internal class VoronoiPolygonBase : IVoronoiPolygons
     {
         public IFeatureClass _fcTarget = null;
         public List<IGeometry> _geometrieVoronoiCalculated = null;
