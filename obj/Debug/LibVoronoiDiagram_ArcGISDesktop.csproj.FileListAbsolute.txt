@@ -1,0 +1,7 @@
+C:\Users\gianc\Source\Repos\GiancaGIS\Voronoi\bin\Debug\LibVoronoiDiagram_ArcGISDesktop.dll
+C:\Users\gianc\Source\Repos\GiancaGIS\Voronoi\bin\Debug\LibVoronoiDiagram_ArcGISDesktop.pdb
+C:\Users\gianc\Source\Repos\GiancaGIS\Voronoi\bin\Debug\LibVoronoiDiagram_ArcGISDesktop.tlb
+C:\Users\gianc\Source\Repos\GiancaGIS\Voronoi\obj\Debug\LibVoronoiDiagram_ArcGISDesktop.csproj.AssemblyReference.cache
+C:\Users\gianc\Source\Repos\GiancaGIS\Voronoi\obj\Debug\LibVoronoiDiagram_ArcGISDesktop.csproj.CoreCompileInputs.cache
+C:\Users\gianc\Source\Repos\GiancaGIS\Voronoi\obj\Debug\LibVoronoiDiagram_ArcGISDesktop.dll
+C:\Users\gianc\Source\Repos\GiancaGIS\Voronoi\obj\Debug\LibVoronoiDiagram_ArcGISDesktop.pdb
