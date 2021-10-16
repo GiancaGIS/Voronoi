@@ -1,0 +1,32 @@
+﻿<ESRI.Configuration xmlns="http://schemas.esri.com/Desktop/AddIns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>ArcMapAddinVoronoi</Name>
+  <AddInID>{b644cc4e-98ef-4854-b154-48713bca05f6}</AddInID>
+  <Description>AddIn for generating Voronoi Polygons</Description>
+  <Version>1.0</Version>
+  <Image>Images\ArcMapAddinVoronoi.png</Image>
+  <Author>GiancaGIS</Author>
+  <Company></Company>
+  <Date>16/10/2021</Date>
+  <Targets>
+    <Target name="Desktop" version="10.8" />
+  </Targets>
+  <AddIn language="CLR" library="ArcMapAddinVoronoi.dll" namespace="ArcMapAddinVoronoi">
+    <ArcMap>
+      <DockableWindows>
+        <DockableWindow id="ArcMapAddinVoronoi_DockableWindowVoronoi" class="DockableWindowVoronoi+AddinImpl" caption="GiancaGIS Voronoi" image="Images\DockableWindowVoronoi.png">
+          <InitialPlacement height="300" width="300" state="pinned" position="left" />
+        </DockableWindow>
+      </DockableWindows>
+      <Commands>
+        <Button id="ArcMapAddinVoronoi_openDockable" class="openDockable" message="" caption="Open Dockable Voronoi Polygons" tip="Add-in command tooltip." category="GiancaGIS" image="" />
+      </Commands>
+      <Toolbars>
+        <Toolbar id="ArcMapAddinVoronoi_GiancaGIS_Toolbar_Voronoi" caption="GiancaGIS Toolbar Voronoi" showInitially="true">
+          <Items>
+            <Button refID="ArcMapAddinVoronoi_openDockable" />
+          </Items>
+        </Toolbar>
+      </Toolbars>
+    </ArcMap>
+  </AddIn>
+</ESRI.Configuration>
