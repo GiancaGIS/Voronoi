@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 
 namespace LibVoronoiDiagram_ArcGISDesktop
 {
-    [ClassInterface(ClassInterfaceType.None), Guid("d123de5e-46da-45c4-ba23-d0f9a46217fe"), ProgId("LibVoronoiDiagram_ArcGISDesktop.Main")]
+    [ClassInterface(ClassInterfaceType.None), Guid("d123de5e-68da-45c4-ba23-d0f9a46217fe"), ProgId("LibVoronoiDiagram_ArcGISDesktop.Main")]
     public class VoronoiPolygonBase : IVoronoiPolygons
     {
         public IFeatureClass _fcTarget = null;
@@ -16,7 +16,7 @@ namespace LibVoronoiDiagram_ArcGISDesktop
 
         public void ValidateFeatureClassTarget()
         {
-            if (_fcTarget != null) throw new ArgumentNullException("The feature class specified is not valid!");
+            if (_fcTarget is null) throw new ArgumentNullException("The feature class specified is not valid!");
             
             if (_fcTarget.ShapeType != esriGeometryType.esriGeometryPolygon)
                 throw new ArgumentException("The feature class must be a polygon feature class!");
@@ -37,9 +37,9 @@ namespace LibVoronoiDiagram_ArcGISDesktop
         /// <summary>
         /// Insert calculated Voronoi polygons in FeatureClass used in costructor method
         /// </summary>
-        public void InsertPolygonsInFc()
+        public void InsertPolygonsInFc(bool useEditSession)
         {
-            this.InsertPolygonsInFc_engine(ref this._fcTarget);
+            this.InsertPolygonsInFc_engine(ref this._fcTarget, useEditSession);
         }
 
         /// <summary>
@@ -52,9 +52,9 @@ namespace LibVoronoiDiagram_ArcGISDesktop
         }
 
 
-        private void InsertPolygonsInFc_engine(ref IFeatureClass featureClass, bool useEditSession=false)
+        private void InsertPolygonsInFc_engine(ref IFeatureClass featureClass, bool useEditSession = false)
         {
-            if (featureClass != null) throw new ArgumentNullException("The feature class specified is not valid!");
+            if (featureClass is null) throw new ArgumentNullException("The feature class specified is not valid!");
 
             if (featureClass.ShapeType != esriGeometryType.esriGeometryPolygon)
                 throw new ArgumentException("The feature class must be a polygon feature class!");
@@ -85,16 +85,16 @@ namespace LibVoronoiDiagram_ArcGISDesktop
 
             if (useEditSession)
             {
-                workspaceEdit.StartEditOperation();
+                workspaceEdit.StopEditOperation();
                 workspaceEdit.StopEditing(true);
-            }
 
-            int reseft;
-            do
-            {
-                reseft = Marshal.ReleaseComObject(workspace);
+                int reseft;
+                do
+                {
+                    reseft = Marshal.ReleaseComObject(workspace);
+                }
+                while (reseft > 0);
             }
-            while (reseft > 0);
         }
     }
 }

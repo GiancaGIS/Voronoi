@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace LibVoronoiDiagram_ArcGISDesktop
 {
-    internal interface IVoronoiPolygons
+    public interface IVoronoiPolygons
     {
         List<IGeometry> CalculateVoronoiPolygons(List<IPoint> points);
 
-        void InsertPolygonsInFc();
+        void InsertPolygonsInFc(bool useEditSession);
 
         void InsertPolygonsInFc(IFeatureClass featureClass, bool useEditSession);
     }
