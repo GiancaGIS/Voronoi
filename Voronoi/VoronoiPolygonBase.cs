@@ -16,7 +16,9 @@ namespace LibVoronoiDiagram_ArcGISDesktop
 
         public void ValidateFeatureClassTarget()
         {
-            if (_fcTarget != null && _fcTarget.ShapeType != esriGeometryType.esriGeometryPolygon)
+            if (_fcTarget != null) throw new ArgumentNullException("The feature class specified is not valid!");
+            
+            if (_fcTarget.ShapeType != esriGeometryType.esriGeometryPolygon)
                 throw new ArgumentException("The feature class must be a polygon feature class!");
         }
 
