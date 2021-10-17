@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcMapAddinVoronoi", "ArcMapAddinVoronoi\ArcMapAddinVoronoi.csproj", "{B644CC4E-98EF-4854-B154-48713BCA05F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibVoronoiDiagram_ArcGISDesktop", "LibVoronoi\LibVoronoiDiagram_ArcGISDesktop.csproj", "{C12A2A5A-23A6-4C2E-AAC8-FB3137B0E510}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B644CC4E-98EF-4854-B154-48713BCA05F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B644CC4E-98EF-4854-B154-48713BCA05F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B644CC4E-98EF-4854-B154-48713BCA05F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B644CC4E-98EF-4854-B154-48713BCA05F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C12A2A5A-23A6-4C2E-AAC8-FB3137B0E510}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C12A2A5A-23A6-4C2E-AAC8-FB3137B0E510}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C12A2A5A-23A6-4C2E-AAC8-FB3137B0E510}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C12A2A5A-23A6-4C2E-AAC8-FB3137B0E510}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E1DF4F6D-3A71-46E1-B8B4-99AB0605172E}
+	EndGlobalSection
+EndGlobal
