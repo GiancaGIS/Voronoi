@@ -104,6 +104,8 @@ namespace ArcMapAddinVoronoi
 
         private void button1_Click(object sender, EventArgs e)
         {
+            this.GetEnviromentVariables();
+
             try
             {
                 if (this._fcTarget is null)
@@ -151,19 +153,15 @@ namespace ArcMapAddinVoronoi
                     voronoiPolygons.InsertPolygonsInFc(true);
                 }
 
-                if (this.checkBox1.Checked && this.comboBoxScelta.SelectedIndex != 0) // Insert feature layer only if the user has selected a new feature class in 
-                    // a Geodatabase!
+                IFeatureLayer featureLayerNew = new FeatureLayer
                 {
-                    IFeatureLayer featureLayerNew = new FeatureLayer
-                    {
-                        FeatureClass = this._fcTarget
-                    };
+                    FeatureClass = this._fcTarget
+                };
 
-                    featureLayerNew.Name = ((IDataset)this._fcTarget).Name;
-                    _mxdDoc.AddLayer(featureLayerNew);
-                    _mxdDoc.ActivatedView.Refresh();
-                    _mxdDoc.UpdateContents();
-                }
+                featureLayerNew.Name = ((IDataset)this._fcTarget).Name;
+                _mxdDoc.AddLayer(featureLayerNew);
+                _mxdDoc.ActivatedView.Refresh();
+                _mxdDoc.UpdateContents();
             }
             catch (Exception ex)
             {
