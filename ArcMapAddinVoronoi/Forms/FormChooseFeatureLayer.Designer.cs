@@ -45,11 +45,11 @@ namespace ArcMapAddinVoronoi.Forms
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(416, 248);
+            this.button1.Location = new System.Drawing.Point(359, 248);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(125, 34);
+            this.button1.Size = new System.Drawing.Size(182, 34);
             this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
+            this.button1.Text = "Select Feature Layer";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
